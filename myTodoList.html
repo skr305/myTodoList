@@ -7,6 +7,7 @@
     <script src="../build/react.development.js"></script>
     <script src="../build/react-dom.development.js"></script>
     <script src="../build/babel.min.js"></script>
+    <link rel="stylesheet" href="todolist.css">
 </head>
 <body>
     <div id="list-wrapper"></div>
@@ -14,11 +15,70 @@
       class FinishedButton extends React.Component {
         constructor(props) {
             super(props)
+            this.state = {
+                style : {
+                margin: "5px",
+                display: "inline-block",
+                padding: ".3em .5em",
+                background: "white",
+                //backgroundImage: "linear-gradient(#ddd, #bbb)",
+                border: "1px solid rgba(0,0,0,.2)",
+                borderRadius: "30%",
+                boxShadow:  "0 1px white inset",
+                textAlign: "center",
+                textShadow: "0 1px 1px black",
+                color:"black",
+                fontWeight: "bold"
+                }
+                
+            }
+            this.handleHover =  this.handleHover.bind(this)
+            this.handleOut =  this.handleOut.bind(this)
+        }
+
+        handleHover() {
+            this.setState({
+                style: {
+                display: "inline-block",
+                margin: "5px",
+                padding: ".3em .5em",
+                background: "yellow",
+                //backgroundImage: "linear-gradient(#ddd, #bbb)",
+                border: "1px solid rgba(0,0,0,.2)",
+                borderRadius: "30%",
+                boxShadow:  "0 1px white inset",
+                textAlign: "center",
+                textShadow: "0 1px 1px black",
+                color:"black",
+                fontWeight: "bold"
+                }
+            })
+        }
+
+        handleOut() {
+            this.setState({
+                style: {
+                display: "inline-block",
+                margin: "5px",
+                padding: ".3em .5em",
+                background: "white",
+                //backgroundImage: "linear-gradient(#ddd, #bbb)",
+                border: "1px solid rgba(0,0,0,.2)",
+                borderRadius: "30%",
+                boxShadow:  "0 1px white inset",
+                textAlign: "center",
+                textShadow: "0 1px 1px black",
+                color:"black",
+                fontWeight: "bold"
+                }
+            })
         }
 
         render() {
             return (
-                <button onClick = {this.props.onClick}>完成!</button>
+                <button onClick = {this.props.onClick} style = {this.state.style} onMouseOver = {
+                    this.handleHover
+                } onMouseOut = {this.handleOut}>√</button>
             )
         }    
       }
@@ -27,11 +87,69 @@
       class DeleteButton extends React.Component {
         constructor(props) {
             super(props)
+            this.state = {
+                style : {
+                    margin: "5px",
+                display: "inline-block",
+                padding: ".3em .5em",
+                background: "white",
+                //backgroundImage: "linear-gradient(#ddd, #bbb)",
+                border: "1px solid rgba(0,0,0,.2)",
+                borderRadius: "50%",
+                boxShadow:  "0 1px white inset",
+                textAlign: "center",
+                textShadow: "0 1px 1px black",
+                color:"black",
+                fontWeight: "bold"
+            }
+            }
+            this.handleHover =  this.handleHover.bind(this)
+            this.handleOut =  this.handleOut.bind(this)
+        }
+
+        handleHover() {
+            this.setState({
+                style: {
+                    margin: "5px",
+                display: "inline-block",
+                padding: ".3em .5em",
+                background: "yellow",
+                //backgroundImage: "linear-gradient(#ddd, #bbb)",
+                border: "1px solid rgba(0,0,0,.2)",
+                borderRadius: "50%",
+                boxShadow:  "0 1px white inset",
+                textAlign: "center",
+                textShadow: "0 1px 1px black",
+                color:"black",
+                fontWeight: "bold"
+                }
+            })
+        }
+
+        handleOut() {
+            this.setState({
+                style: {
+                    margin: "5px",
+                    display: "inline-block",
+                padding: ".3em .5em",
+                background: "white",
+                //backgroundImage: "linear-gradient(#ddd, #bbb)",
+                border: "1px solid rgba(0,0,0,.2)",
+                borderRadius: "50%",
+                boxShadow:  "0 1px white inset",
+                textAlign: "center",
+                textShadow: "0 1px 1px black",
+                color:"black",
+                fontWeight: "bold"
+                }
+            })
         }
 
         render() {
             return (
-                <button onClick = {this.props.onClick}>X</button>
+                <button  onClick = {this.props.onClick} style = {this.state.style} onMouseOver = {
+                    this.handleHover
+                } onMouseOut = {this.handleOut}>X</button>
             )
         }
       }
@@ -123,11 +241,70 @@
       class TaskAddButton extends React.Component {
         constructor(props) {
             super(props)
-            
+            this.state = {
+                style : {
+                margin: "10px",
+                display: "inline-block",
+                padding: ".3em .5em",
+                background: "none",
+                //backgroundImage: "linear-gradient(#ddd, #bbb)",
+                border: "2px solid rgba(0,0,0,.2)",
+                color: "white",
+                borderRadius: "20%",
+                textAlign: "center",
+                border: "2px solid white",
+                fontColor:"black",
+                width: "90px",
+                height: "40px"
+                }
+                
+            }
+            this.handleHover =  this.handleHover.bind(this)
+            this.handleOut =  this.handleOut.bind(this)
         }
 
+        handleHover() {
+            this.setState({
+                style: {
+                    margin: "10px",
+                display: "inline-block",
+                padding: ".3em .5em",
+                background: "skyblue",
+                //backgroundImage: "linear-gradient(#ddd, #bbb)",
+                border: "2px solid white",
+                borderRadius: "20%",
+                fontColor: "white",
+                textAlign: "center",
+                width: "90px",
+                height: "40px",
+                color:"black"
+                }
+            })
+        }
+
+        handleOut() {
+            this.setState({
+                style: {
+                    margin: "10px",
+                display: "inline-block",
+                padding: ".3em .5em",
+                background: "none",
+                //backgroundImage: "linear-gradient(#ddd, #bbb)",
+                border: "2px solid rgba(0,0,0,.2)",
+                borderRadius: "20%",
+                color: "white",
+                textAlign: "center",
+                border: "2px solid white",
+                fontColor:"black",
+                width: "90px",
+                height: "40px"
+                }
+            })
+        }
         render() {
-            return <button onClick = {this.props.onClick}>添加新任务</button>
+            return <button onClick = {this.props.onClick} style = {this.state.style} onMouseOver = {
+                    this.handleHover
+                } onMouseOut = {this.handleOut}>ADD</button>
         }
       }
 
@@ -135,11 +312,22 @@
       class TaskInput extends React.Component {
         constructor(props) {
             super(props)
-            
+            this.state = {
+                style: {
+                    width: "80%",
+                    marginTop: "20px",
+                    color: "rgb(199,191,219)",
+                    display: "inline",
+                    border: '0',
+                    borderBottom: "solid 2px rgb(199,191,219)",
+                    background: "0",
+                    textAlign: "center"
+                }
+            }
         }
 
         render() {
-            return (<div><input type="text" onChange = {this.props.onChange}/></div>)
+            return (<div><input type="text" style = {this.state.style} onChange = {this.props.onChange}/></div>)
         }
       }
 
@@ -147,7 +335,10 @@
         constructor(props) {
             super(props)
             this.state = {
-                taskName : '321321321'
+                taskName : '321321321',
+                style : {
+                    paddingTop : "7px"
+                }
             }
             this.handleChange = this.handleChange.bind(this)
             this.handleSubmit = this.handleSubmit.bind(this)
@@ -164,7 +355,7 @@
         }
 
         render() {
-            return (<div>请输入你的待办事项<TaskInput onChange = {this.handleChange}/><TaskAddButton onClick = {this.handleSubmit}/></div>)
+            return (<div style = {this.state.style}>请输入你的待办事项<TaskInput onChange = {this.handleChange}/><TaskAddButton onClick = {this.handleSubmit}/></div>)
         }
       }
 
@@ -175,6 +366,7 @@
                 finishedList: ["吃饭"],
                 unfinishedList: ["睡觉"]
             }
+        
             this.addTask = this.addTask.bind(this)
             this.delFinishedTask = this.delFinishedTask.bind(this)
             this.delUnfinishedTask = this.delUnfinishedTask.bind(this)
@@ -228,7 +420,20 @@
         
 
         render() {
-            return (<div>计划本 <TaskAddFrame addFunction = {this.addTask}/> <FinishedFrame list = {this.state.finishedList} delFunction = {this.delFinishedTask}/>
+            let style = {
+                background: "rgba(34, 31, 37, 0.8)",
+                display: "flex",
+                textAlign: "center",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+                width: "350px",
+                height: "500px",
+                flexDirection: "column",
+                color: "white",
+                border: "solid gray 2px",
+                borderRadius: "15px"
+            }
+            return (<div style = {style}> <div style = {{fontSize:"25px", color: "wheat"}}> 计划表 </div> <TaskAddFrame addFunction = {this.addTask}/> <FinishedFrame list = {this.state.finishedList} delFunction = {this.delFinishedTask}/>
              <UnfinishedFrame list = {this.state.unfinishedList} delFunction = {this.delUnfinishedTask} finishFunction = {this.finishTask} /></div>)
         }
       }
