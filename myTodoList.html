@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../build/react.development.js"></script>
+    <script src="../build/react-dom.development.js"></script>
+    <script src="../build/babel.min.js"></script>
+</head>
+<body>
+    <div id="list-wrapper"></div>
+    <script type="text/babel">
+      class FinishedButton extends React.Component {
+        constructor(props) {
+            super(props)
+        }
+
+        render() {
+            return (
+                <button onClick = {this.props.onClick}>完成!</button>
+            )
+        }    
+      }
+    
+
+      class DeleteButton extends React.Component {
+        constructor(props) {
+            super(props)
+        }
+
+        render() {
+            return (
+                <button onClick = {this.props.onClick}>X</button>
+            )
+        }
+      }
+
+      class FinishedItem extends React.Component {
+        constructor(props) {
+            super(props)
+            this.delete = this.delete.bind(this)
+        }
+        delete() {
+            this.props.delFunction(this.props.name)
+        }
+        render() {
+            return (
+                <li>{this.props.name} <DeleteButton onClick = {this.delete}/></li>
+            )
+        }
+      }
+
+      class UnfinishedItem extends React.Component {
+        constructor(props) {
+            super(props)
+            this.finish = this.finish.bind(this)
+            this.delete = this.delete.bind(this)
+        }
+
+        finish() {
+            this.props.finishFunction(this.props.name)
+        }
+
+        delete() {
+            this.props.delFunction(this.props.name)
+        }
+
+        render() {
+            return (
+                <li>{this.props.name} <FinishedButton onClick = {this.finish}/> 
+                <DeleteButton  onClick = {this.delete}/></li>
+            )
+        }
+      }
+
+      class FinishedFrame extends React.Component {
+        constructor(props) {
+            super(props)
+            
+        }
+
+        render() {
+            return (
+                <div>
+                    <div>
+                        已完成
+                    </div>
+                    <ul>
+                        {this.props.list.map((item) => {
+                            return <FinishedItem name = {item} key = {item} delFunction = {this.props.delFunction}/>
+                        })}
+                    </ul>
+                </div>
+            )
+        }
+      }
+
+
+      class UnfinishedFrame extends React.Component {
+        constructor(props) {
+            super(props)
+            
+        }
+
+        render() {
+            return (
+                <div>
+                    <div>
+                        未完成
+                    </div>
+                    <ul>
+                        {this.props.list.map((item) => {
+                            return <UnfinishedItem name = {item} key = {item}
+                            delFunction = {this.props.delFunction} finishFunction = {this.props.finishFunction}/>
+                        })}
+                    </ul>
+                </div>
+            )
+        }
+      }
+
+      class TaskAddButton extends React.Component {
+        constructor(props) {
+            super(props)
+            
+        }
+
+        render() {
+            return <button onClick = {this.props.onClick}>添加新任务</button>
+        }
+      }
+
+      
+      class TaskInput extends React.Component {
+        constructor(props) {
+            super(props)
+            
+        }
+
+        render() {
+            return (<div><input type="text" onChange = {this.props.onChange}/></div>)
+        }
+      }
+
+      class TaskAddFrame extends React.Component {
+        constructor(props) {
+            super(props)
+            this.state = {
+                taskName : '321321321'
+            }
+            this.handleChange = this.handleChange.bind(this)
+            this.handleSubmit = this.handleSubmit.bind(this)
+        }
+
+        handleChange(e) {
+            this.setState({
+                taskName : e.target.value
+            })
+        }
+
+        handleSubmit() {
+            this.props.addFunction(this.state.taskName)
+        }
+
+        render() {
+            return (<div>请输入你的待办事项<TaskInput onChange = {this.handleChange}/><TaskAddButton onClick = {this.handleSubmit}/></div>)
+        }
+      }
+
+      class MainFrame extends React.Component {
+        constructor(props) {
+            super(props)
+            this.state = {
+                finishedList: ["吃饭"],
+                unfinishedList: ["睡觉"]
+            }
+            this.addTask = this.addTask.bind(this)
+            this.delFinishedTask = this.delFinishedTask.bind(this)
+            this.delUnfinishedTask = this.delUnfinishedTask.bind(this)
+            this.finishTask = this.finishTask.bind(this)
+        }
+
+        //添加新的任务至未完成队列
+        addTask(task) {
+            //  this.state.unfinishedList.push(task)
+            
+            //先判断是否列表中已存在这个任务
+            if(this.state.unfinishedList.indexOf(task) == -1) {
+                let newList = this.state.unfinishedList;
+                newList.push(task)
+                console.log(task)
+                this.setState ({
+                    unfinishedList: newList
+                })
+                } else
+                window.alert("请勿添加重复的任务")
+            } 
+
+            finishTask(task) {
+                //从未完成队列中移除这个任务
+                this.delUnfinishedTask(task)
+                //添加这个任务至已完成队列
+                let newList = this.state.finishedList
+                newList.push(task)
+                console.log(task)
+                this.setState ({
+                    finishedList: newList
+                })
+            }
+            //删除未完成对列中的任务
+            delFinishedTask(task) {
+                console.log("233")
+                let newList = this.state.finishedList
+                newList.splice(newList.indexOf(task), 1)
+                this.setState({
+                    finishedList: newList
+                })
+            }
+            //删除完成对列中的任务
+            delUnfinishedTask(task) {
+                let newList = this.state.unfinishedList
+                newList.splice(newList.indexOf(task), 1)
+                this.setState({
+                    unfinishedList: newList
+                })
+            }
+        
+
+        render() {
+            return (<div>计划本 <TaskAddFrame addFunction = {this.addTask}/> <FinishedFrame list = {this.state.finishedList} delFunction = {this.delFinishedTask}/>
+             <UnfinishedFrame list = {this.state.unfinishedList} delFunction = {this.delUnfinishedTask} finishFunction = {this.finishTask} /></div>)
+        }
+      }
+
+      ReactDOM.render(
+          <MainFrame/>,
+          document.getElementById("list-wrapper")
+      )
+    </script>
+</body>
+</html>
