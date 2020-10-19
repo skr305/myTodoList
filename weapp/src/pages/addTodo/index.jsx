@@ -1,84 +1,13 @@
 import Taro from '@tarojs/taro'
+import {getCurrentInstance} from '@tarojs/taro'
 import React from 'react'
 import { connect, Provider } from 'react-redux'
-import { View, Button, Text, Swiper, Input } from '@tarojs/components'
+import { View, Button, Text, Swiper, Input, Picker } from '@tarojs/components'
 // import { add, minus, asyncAdd } from '../../actions/counter'
 import './index.less'
-import {addTypeAct, showTypeAct} from '../actions/index'
+import {addTodoAct} from '../actions/index'
 import store from '../store/index'
-// @connect(({ counter }) => ({
-//   counter
-// }), (dispatch) => ({
-//   add () {
-//     dispatch(add())
-//   },
-//   dec () {
-//     dispatch(minus())
-//   },
-//   asyncAdd () {
-//     dispatch(asyncAdd())
-//   }
-// }))
-// let initialStore = {
-//   todoList : {
-//     normal: {
-//         name: "normal",
-//         show: false,
-//         list: {
-//             //属于normal类的eat任务
-//             eat: {
-//                 typeKey: "normal",
-//                 name: "eat",
-//                 load: "233",
-//                 isOk: false,
-//                 typeName: "normal"
-//             },
-//             walk: {
-//                 typeKey: "normal",
-//                 name: "walk",
-//                 load: "233",
-//                 isOk: false,
-//                 typeName: "normal"
-//             }
-//         }
-//     },
-//     work: {
-//         name: "work",
-//         show: false,
-//         list: {
-//             //属于normal类的eat任务
-//             code: {
-//                 typeKey: "work",
-//                 name: "code",
-//                 load: "233",
-//                 isOk: false,
-//                 typeName: "work"
-//             }
-//         }
-//     }
-// }
-// }
-
-
-// let store = createStore(reducer, initialStore,applyMiddleware(thunk) )
-
-// store["todoList"] = initialStore["todoList"] 
-
-
-
-// console.log(typeof store["todoList"])
-
-
-
-// class TodoList extends Component {
-//   render () {
-//     return (
-//       <View> 
-//           <Button></Button>
-//       </View>
-//     )
-//   }
-// }
+import {formatDateToTime} from '../constants/date'
 
 
 
@@ -89,78 +18,146 @@ function mapStateToProps (state) {
     }
 }
 
-// // let mapDispatchToProps = {
-// //     add: () => {type: "ADD"},
-// //     minus: () => {type: "MINUS"}
-// // }
-// // , mapDispatchToProps
 function mapDispatchToProps(dispatch) {
     return {
-        showType: () => {return dispatch(showTypeAct("normal"))},
-        addType: (typeName) => {console.log("putOUT");return dispatch(addTypeAct(typeName))}}
+
+        addTodo: (endTime, todoName, typeKey) => {console.log("putOUT");return dispatch(addTodoAct(endTime, todoName, typeKey))}}
         
   }
 
 
-// class Index extends Component {
-//   componentWillReceiveProps (nextProps) {
-//     console.log(this.props, nextProps)
+
+class AddTodo extends React.Component {
+
+  // state = {
+  //   selector: ['美国', '中国', '巴西', '日本'],
+  //   selectorChecked: '美国',
+  //   timeSel: '12:01',
+  //   dateSel: '2018-04-22'
+  // }
+
+  // onChange = e => {
+  //   this.setState({
+  //     selectorChecked: this.state.selector[e.detail.value]
+  //   })
+  // }
+
+  // onTimeChange = e => {
+  //   this.setState({
+  //     timeSel: e.detail.value
+  //   })
+  // }
+ 
+
+  // render () {
+  //   return (
+  //     <View className='container'>
+  //       <View className='page-body'>
+  //         <View className='page-section'>
+  //           <Text>地区选择器</Text>
+  //           <View>
+  //             <Picker mode='selector' range={this.state.selector} onChange={this.onChange}>
+  //               <View className='picker'>
+  //                 当前选择：{this.state.selectorChecked}
+  //               </View>
+  //             </Picker>
+  //           </View>
+  //         </View>
+  //         <View className='page-section'>
+  //           <Text>时间选择器</Text>
+  //           <View>
+  //             <Picker mode='time' onChange={this.onTimeChange}>
+  //               <View className='picker'>
+  //                 当前选择：{this.state.timeSel}
+  //               </View>
+  //             </Picker>
+  //           </View>
+  //         </View>
+  //         <View className='page-section'>
+  //           <Text>日期选择器</Text>
+  //           <View>
+  //             <Picker mode='date' onChange={this.onDateChange}>
+  //               <View className='picker'>
+  //                 当前选择：{this.state.dateSel}
+  //               </View>
+  //             </Picker>
+  //           </View>
+  //         </View>
+  //       </View>
+  //     </View>
+  //   )
+  //
+
+
+
+
+
+
+//   constructor(props) {
+//     super(props)
+//     this.state = {
+//       typeName : ''
+//     }
+//     this.getTypeName = this.getTypeName.bind(this)
 //   }
 
-//   componentWillUnmount () { }
 
-//   componentDidShow () { }
+        state = {
+          endTime: "20201111080000",
+          todoName: '',
+          typeKey: ''
+        }
 
-//   componentDidHide () { }
+        //获取由上一个页面传来的参数
+        componentDidMount () {
+          console.log(getCurrentInstance())
+          let typeKey = (getCurrentInstance()).router.params.typeKey
+          
+          this.setState({
+            typeKey: typeKey
+          })
+        }
 
-//   render () {
-//     return (
-//       <View className='index'>
-//         <Button className='add_btn' onClick={this.props.add}>++</Button>
-//         <Button className='dec_btn' onClick={this.props.dec}>--</Button>
-//         <Button className='dec_btn' onClick={this.props.asyncAdd}>async</Button>
-//         <View><Text>{this.props.counter.num}</Text></View>
-//         <View><Text>Hello, World</Text></View>
-//       </View>
-//     )
-//   }
-// }
-class AddType extends React.Component {
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      typeName : ''
+    handleChange = e => {
+        this.setState({
+            todoName : e.detail.value
+        })
+        console.log("changeText")
+        
     }
-    this.getTypeName = this.getTypeName.bind(this)
-  }
 
-  
-  handleChange(e) {
+
+    onDateChange = e => {
     this.setState({
-        typeName : e.detail.value
-    })
-    console.log("changeText")
-    
-}
-
-  getTypeName() {
-    
-    return this.state.typeName
+      endTime: formatDateToTime(e.detail.value)
+    }) 
+    console.log(this.state.endTime);
   }
+
+
+//   getTypeName() {
+    
+//     return this.state.typeName
+//   }
+  
 
   render() {  
-   const addType = this.props.addType
-   const showType = this.props.showType
+   const addTodo = this.props.addTodo
     return (
       <View>
-      <View>
-        <Input placeholder="请输入任务分类"  onInput={this.handleChange.bind(this)}>
-
+        <Input placeholder="请输入任务名称"  onInput={this.handleChange}>         
       </Input>
+      <View >
+            <View>
+              <Picker mode='date' onChange={this.onDateChange}>
+                <View className='picker' style="border: 3px solid wheat">
+                  选择截至日期: {this.state.endTime}
+                </View>
+              </Picker>
+            </View>
       </View>
   <View>
-    <Button onClick={() => {console.log('wttttttt'); addType(this.getTypeName());console.log(store);Taro.switchTab({url: "/pages/index/index"})}}>提交</Button>
+    <Button onClick={() => {console.log('wttttttt'); addTodo(this.state.endTime, this.state.todoName, this.state.typeKey);console.log(this.state.typeKey);Taro.switchTab({url: "/pages/index/index"})}}>提交</Button>
     
     </View>
     </View>
@@ -170,7 +167,7 @@ class AddType extends React.Component {
   }
 }
 
- const VisibleAddType = connect(mapStateToProps, mapDispatchToProps)(AddType)
+ const VisibleAddType = connect(mapStateToProps, mapDispatchToProps)(AddTodo)
 
 class App extends React.Component {
   render() {

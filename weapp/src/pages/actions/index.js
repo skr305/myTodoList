@@ -58,8 +58,9 @@ export function reachAct(typeKey, todoKey) {
 
 
 export function delTypeAct(typeKey) {
+    console.log("produce delTypeAct")
     return {
-        type: "DELType",
+        type: "DELTYPE",
         payload: {
             typeKey: typeKey
         }
@@ -89,3 +90,36 @@ export function showTypeAct(typeKey) {
         }
     }
 }
+
+
+//用于切换列表的可见性
+export function weatherAct(weather) {
+    return {
+        type: "WEATHER",
+        payload: {
+            weather: weather
+        }
+    }
+}
+
+//用于切换列表的可见性
+export function currentMonthAct(month) {
+    return {
+        type: "CURRENTMONTH",
+        payload: {
+            currentMonth: month
+        }
+    }
+}
+
+
+//用于切换列表的可见性
+export function currentDayAct(day) {
+    return {
+        type: "CURRENTDAY",
+        payload: {
+            currentDay: day
+        }
+    }
+}
+

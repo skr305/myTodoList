@@ -2,7 +2,8 @@ export default {
   pages: [
     'pages/index/index',
     'pages/history/index',
-    'pages/addType/index'
+    'pages/addType/index',
+    'pages/addTodo/index'
   ],
   window: {
     backgroundTextStyle: 'light',

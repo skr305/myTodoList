@@ -1,0 +1,27 @@
+.index {
+  flex-direction: row;
+  width: 100%;
+}
+.total .top {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.total .calendar .week {
+  display: flex;
+  flex-direction: row;
+}
+.total .calendar .week .week-block {
+  min-width: 100rpx;
+}
+.total .calendar .date {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.total .calendar .date .date-block {
+  min-width: 100rpx;
+}
+.total .on-todo {
+  color: skyblue;
+}

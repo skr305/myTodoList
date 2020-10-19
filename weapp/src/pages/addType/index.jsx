@@ -151,7 +151,6 @@ class AddType extends React.Component {
 
   render() {  
    const addType = this.props.addType
-   const showType = this.props.showType
     return (
       <View>
       <View>

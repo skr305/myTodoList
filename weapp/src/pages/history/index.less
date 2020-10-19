@@ -1,4 +1,49 @@
 .index {
-  flex-direction: column;
+  flex-direction: row;
   width: 100%;
+}
+
+.total {
+
+  // color: red;
+  // .top .week .date {
+    
+  //   display: flex;
+  //   flex-direction: row;
+  // }
+
+  .top {
+      
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+  }
+
+  .calendar {
+    .week {
+      display: flex;
+      flex-direction: row;
+      .week-block  {
+        min-width: 100rpx;
+      }
+    }
+    .date{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      .date-block  {
+        min-width: 100rpx;
+      }
+
+    }
+  }
+  
+
+  
+
+  
+
+  .on-todo {
+    color: skyblue;
+  }
 }

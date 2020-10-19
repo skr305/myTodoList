@@ -48,6 +48,12 @@ import reducer from '../reducers/index'
 //     }
 // })
 let initialStore = {
+    tip: {
+        location: '',
+        cityID: '',
+        cityName: '',
+        weather: ''
+    },
   todoList : {
       normal: {
           typeName: "normal",
@@ -67,7 +73,14 @@ let initialStore = {
                   endTime: "22001011123133",
                   isOk: false,
                   typeName: "normal"
-              }
+              },
+               20190510132010: {
+                typeKey: "normal",
+                todoName: "takePhoto",
+                endTime: "22001011123133",
+                isOk: true,
+                typeName: "normal"
+            }
           }
       },
       work: {
@@ -84,10 +97,25 @@ let initialStore = {
               }
           }
       }
+  },
+  history: {
+      currentMonth: '202009',
+      currentDay: '20200919',
+      dateList: {
+          "20190510": [
+                {typeKey: "normal",
+                todoName: "takePhoto",
+                endTime: "22001011123133",
+                isOk: true,
+                typeName: "normal" }  
+          ]
+      }
   }
 }
 
 
 const store = createStore(reducer, initialStore, applyMiddleware(thunk))
 store["todoList"] = initialStore["todoList"] 
+store["tip"] = initialStore["tip"] 
+store["history"] = initialStore["history"]
 export default store

@@ -6,7 +6,20 @@ export function time() {
     return timeStr
 }
 
+//用于把格式化的日期转化为时间戳
+export function formatDateToTime(date) {
 
+    let dateArr = date.split('-');
+    let result = "";
+    for(let ele of dateArr) {
+        console.log("good")
+        result += ele;
+    }
+
+    //小时分钟和秒的后缀 这意味着00:00:00
+    result += "000000"
+    return result
+}
 
 
 export function date() {

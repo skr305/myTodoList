@@ -2,30 +2,26 @@
   flex-direction: column;
   width: 100%;
 }
-
 page {
   height: 100%;
-  
 }
-
-.flex-wrp{
+.flex-wrp {
   display: flex;
   flex-direction: row;
   min-height: 80rpx;
   border: solid 7rpx wheat;
   border-radius: 20rpx;
   margin-bottom: 10rpx;
-  .flex-top {
-    flex: 1;
-  }
-  .flex-item {
-    width: 10%;
-    border: 2px solid peru;
-    text-align: center;
-    border-radius: 50%;
-  }
 }
-
+.flex-wrp .flex-top {
+  flex: 1;
+}
+.flex-wrp .flex-item {
+  width: 10%;
+  border: 2px solid peru;
+  text-align: center;
+  border-radius: 50%;
+}
 .addType {
   height: 50rpx;
   width: 50rpx;
