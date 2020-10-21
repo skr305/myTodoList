@@ -152,14 +152,14 @@ class AddType extends React.Component {
   render() {  
    const addType = this.props.addType
     return (
-      <View>
-      <View>
-        <Input placeholder="请输入任务分类"  onInput={this.handleChange.bind(this)}>
+      <View className="total">
+      <View className="input-wrp">
+        <Input className="type-input" placeholder="请输入分类名称"  onInput={this.handleChange.bind(this)}>
 
       </Input>
       </View>
-  <View>
-    <Button onClick={() => {console.log('wttttttt'); addType(this.getTypeName());console.log(store);Taro.switchTab({url: "/pages/index/index"})}}>提交</Button>
+  <View className="btn-wrp"> 
+    <Button className="submit-btn" onClick={() => {console.log('wttttttt'); addType(this.getTypeName());console.log(store);Taro.switchTab({url: "/pages/index/index"})}}>提交</Button>
     
     </View>
     </View>

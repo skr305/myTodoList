@@ -12,7 +12,6 @@ export function formatDateToTime(date) {
     let dateArr = date.split('-');
     let result = "";
     for(let ele of dateArr) {
-        console.log("good")
         result += ele;
     }
 

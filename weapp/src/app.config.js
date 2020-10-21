@@ -1,9 +1,12 @@
 export default {
   pages: [
     'pages/index/index',
-    'pages/history/index',
+    'pages/addTodo/index',
     'pages/addType/index',
-    'pages/addTodo/index'
+    'pages/history/index',
+    
+    
+    
   ],
   window: {
     backgroundTextStyle: 'light',

@@ -103,7 +103,7 @@ class AddTodo extends React.Component {
 
 
         state = {
-          endTime: "20201111080000",
+          endTime: "请选择截至日期",
           todoName: '',
           typeKey: ''
         }
@@ -144,28 +144,53 @@ class AddTodo extends React.Component {
   render() {  
    const addTodo = this.props.addTodo
     return (
-      <View>
-        <Input placeholder="请输入任务名称"  onInput={this.handleChange}>         
+  //     <View>
+  //       <Input placeholder="请输入任务名称"  onInput={this.handleChange}>         
+  //     </Input>
+  //     <View >
+            
+  //     </View>
+  // <View>
+  //   <Button onClick={() => {console.log('wttttttt'); addTodo(this.state.endTime, this.state.todoName, this.state.typeKey);console.log(this.state.typeKey);Taro.switchTab({url: "/pages/index/index"})}}>提交</Button>
+    
+  //   </View>
+  //   </View>
+  <View className="total">
+      <View className="input-wrp">
+        <Input className="type-input" placeholder="请输入TODO名称"  onInput={this.handleChange}>
       </Input>
-      <View >
-            <View>
-              <Picker mode='date' onChange={this.onDateChange}>
-                <View className='picker' style="border: 3px solid wheat">
-                  选择截至日期: {this.state.endTime}
+      </View>
+
+      <View className="picker-wrp">
+              <Picker mode='date' onChange={this.onDateChange} className="picker">
+                <View className='picker-text'>
+                  {this.state.endTime.length === 14 ? (this.state.endTime.substr(0, 4) + "-" 
+                  + this.state.endTime.substr(4, 2)) + "-" + this.state.endTime.substr(6, 2) : 
+                  this.state.endTime}
                 </View>
               </Picker>
             </View>
-      </View>
-  <View>
-    <Button onClick={() => {console.log('wttttttt'); addTodo(this.state.endTime, this.state.todoName, this.state.typeKey);console.log(this.state.typeKey);Taro.switchTab({url: "/pages/index/index"})}}>提交</Button>
+  <View className="btn-wrp"> 
+    <Button className="submit-btn" onClick={() => {if(this.state.endTime.length < 14); addTodo(this.state.endTime, this.state.todoName, this.state.typeKey);console.log(this.state.typeKey);Taro.switchTab({url: "/pages/index/index"})}}>提交</Button>
     
     </View>
+
     </View>
     
     )
     
   }
 }
+
+{/* <View className="picker-wrp">
+              <Picker mode='date' onChange={this.onDateChange} className="picker">
+                <View className='picker-text' style="border: 3px solid wheat">
+                  选择截至日期: {this.state.endTime}
+                </View>
+              </Picker>
+            </View> */}
+
+            // onClick={() => {console.log('wttttttt'); addTodo(this.state.endTime, this.state.todoName, this.state.typeKey);console.log(this.state.typeKey);Taro.switchTab({url: "/pages/index/index"})}}
 
  const VisibleAddType = connect(mapStateToProps, mapDispatchToProps)(AddTodo)
 

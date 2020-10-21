@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect, Provider } from 'react-redux'
-import { View, Button, Text, Swiper } from '@tarojs/components'
+import { View, Button, ScrollView } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 // import { createStore, applyMiddleware } from 'redux'
 // import thunk from 'redux-thunk'
@@ -9,9 +9,9 @@ import Taro from '@tarojs/taro'
 import './index.less'
 import VisibleTodo from '../todoListComp/todo'
 import VisibleType from '../todoListComp/type'
-import showTodo from '../actions/index'
 import store from '../store/index'
-import {weatherAct} from '../actions/index'
+import {weatherAct, reachAct} from '../actions/index'
+import {time} from '../constants/date'
 
 // @connect(({ counter }) => ({
 //   counter
@@ -123,9 +123,7 @@ let getWheater = (cityID, upDate) => {
     },
     method: 'GET',
     success(res) {
-      console.log(res)
-      console.log(store["tip"].weather = res.data.now.text)
-      console.log(store)
+      console.log(res.data)
       upDate(res.data.now.text)
     }
   
@@ -136,12 +134,8 @@ let getWheater = (cityID, upDate) => {
 
 
 
-console.log(typeof store["todoList"])
-
-
 
 class TodoList extends Component {
-
 
 
   componentDidMount() {
@@ -150,29 +144,112 @@ class TodoList extends Component {
     getTip(weather)
   }
   
+  
   render () {
+    
+    let nowTime = time()
+    console.log(nowTime)
+    console.log(20201020152343 > "22001011123133")
+    let reachTodo = this.props.reachTodo
     return (
-      <View>
+      <view>
+     
+        {/* 跳转到添加分类的页面 */}
+        <View style="display: flex; flexDirection: row" class="top">
+        {Object.keys(store["tip"]).map((key) => {
+          if(key == "weather") {
+              let weather = store["tip"][key]
+              console.log(weather + "2333333")
+              console.log(store)
+              if(weather == "晴" || weather == "多云")
+                { 
+                  return (<view class="weather">
+                  <view class="weatherIcon">🌤</view>
+                  <view class="weatherText">{store["tip"].cityName}天气不错</view>
+                </view>)}
+              else if(weather == "阴") 
+               { return(<view class="weather">
+               <view class="weatherIcon">☁</view>
+       <view class="weatherText"> {store["tip"].cityName}{store["tip"].cityName}是阴天 不如散散步吧</view>
+             </view>)}
+              else if(weather.indexOf("雨") != -1)
+                {return (<view class="weather">
+                <view class="weatherIcon">🌧</view>
+        <view class="weatherText"> {store["tip"].cityName}下雨了 呆在房子里吧</view>
+              </view>)}
+              else if(weather.indexOf("雪") != -1)
+              {  return (<view class="weather">
+              <view class="weatherIcon">🌨</view>
+      <view class="weatherText"> {store["tip"].cityName}今天下雪啦</view>
+            </view>)}
+              else 
+               { return (<view class="weather">
+               <view class="weatherIcon">😑</view>
+       <view class="weatherText"> {store["tip"].cityName}今天天气不太好呢</view>
+             </view>)}
+          }
+        })}
         
-    <View>{store["tip"].weather}</View>
-        
+        {/* <Button onClick={()=> {console.log(store)}}>点我查看store数据</Button> */}
+        </View>
+      <ScrollView scrollY={true} class="main">
+      <View class="addType" onClick={()=>{Taro.navigateTo({url: '/pages/addType/index'})}}>+</View>
+        {/* <view>233</view>
+        <view>233</view>
+        <view>233</view>
+        <view>233</view>
+        <view>233</view>
+        <view>233</view>        
+        <view>2</view>
+        <view>2</view>
+        <view>2</view>
+        <view>2</view>
+        <view>2</view>
+        <view>2</view>
+        <view>2</view>
+        <view>2</view>
+        <view>2</view>
+        <view>2</view>
+        <view>2</view>
+        <view>2</view>
+        <view>2</view> */}
+
+
         {
           
            Object.keys(store["todoList"]).map((typeKey) => {
             if((store["todoList"])[typeKey].show === true) {
-              return (<view key={typeKey}>
-                <VisibleType typeKey={typeKey}>
+              if(Object.keys(store["todoList"][typeKey].list).length > 0) {
+              return (<scroll-view key={typeKey}>
+                <VisibleType typeKey={typeKey} class="type">
                   </VisibleType> 
+                  <view className="todo-wrp">
                   {  
                       //渲染每个type之下的todo对象
                       Object.keys((store["todoList"])[typeKey].list).map((todoKey) => {
-                        
-                        if(((store["todoList"])[typeKey].list)[todoKey].isOk !== true)
-                          return <VisibleTodo key={todoKey} typeKey={typeKey} todoKey={todoKey} ></VisibleTodo>
+                        console.log("outofDate")
+                        if(((store["todoList"])[typeKey].list)[todoKey].isOk !== true) {
+                          // return <VisibleTodo key={todoKey} typeKey={typeKey} todoKey={todoKey} ></VisibleTodo>
+                          if(((store["todoList"])[typeKey].list)[todoKey].endTime > nowTime) {
+                            return <VisibleTodo  key={todoKey} typeKey={typeKey} todoKey={todoKey} ></VisibleTodo>
+                          }
+                          else {
+                            reachTodo(typeKey, todoKey)
+                          }
+                              
+                        }
                       })
                   }
-            </view>
-            )
+                  </view>
+                  
+            </scroll-view>)}
+              else {
+              return  (<view key={typeKey}>
+                  <VisibleType typeKey={typeKey}>
+                    </VisibleType> 
+                    <view class="todo-tip">此分类下还没有任务~</view>
+              </view>)
+              }
             } else {
               return (<view key={typeKey}>
                   <VisibleType typeKey={typeKey}> 
@@ -182,9 +259,8 @@ class TodoList extends Component {
           }
           })
       }
-        
-
-      </View>
+    </ScrollView>
+      </view>
     )
   }
 }
@@ -209,7 +285,8 @@ function mapDispatchToProps(dispatch) {
     //   add: () => dispatch({type: "ADD"}),
     //   minus: () => dispatch({type: "MINUS"})
         weather: (weather) => dispatch(weatherAct(weather)),
-        show: (typeKey) => dispatch(showTodo(typeKey))}
+        reachTodo: (typeKey, todoKey) => {console.log("dispatching"); return dispatch(reachAct(typeKey, todoKey)) }
+    }
         
   }
  const VisibleTodoList = connect(mapStateToProps, mapDispatchToProps)(TodoList)
@@ -238,17 +315,15 @@ function mapDispatchToProps(dispatch) {
 //   }
 // }
 class App extends React.Component {
+
+  
+
   render() {
     console.log("indexPage rendering...")
     return (
-      <View>
-        
-      <Provider store={store}>
-        {/* 跳转到添加分类的页面 */}
-        <View style="display: flex; flexDirection: row">
-        <View class="addType" onClick={()=>{Taro.navigateTo({url: '/pages/addType/index'})}}>+</View>
-        <Button onClick={()=> {console.log(store)}}>点我查看store数据</Button>
-        </View>
+    <View>
+  
+    <Provider store={store}>
         <VisibleTodoList></VisibleTodoList>
   </Provider>
   </View>

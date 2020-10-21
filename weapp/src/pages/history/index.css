@@ -2,26 +2,100 @@
   flex-direction: row;
   width: 100%;
 }
-.total .top {
+page {
+  background-color: darkcyan;
+}
+.total .calendar {
+  border: 1rpx solid #eb8585;
+  border-radius: 10rpx;
+  background-color: whitesmoke;
+}
+.total .calendar .top {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-evenly;
+  margin-top: 50rpx;
+  margin-bottom: 50rpx;
+}
+.total .calendar .top .top-text {
+  margin-top: 35rpx;
+  color: #137272;
+  font-size: 50rpx;
+}
+.total .calendar .top view {
+  margin-top: 35rpx;
+}
+.total .calendar .calendar-body {
+  display: flex;
+  flex-direction: column;
 }
 .total .calendar .week {
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
+  margin-left: 25rpx;
 }
 .total .calendar .week .week-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   min-width: 100rpx;
+  min-height: 100rpx;
+  color: #f76161;
+  font-weight: bold;
+  margin-bottom: 25rpx;
 }
 .total .calendar .date {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-left: 25rpx;
 }
 .total .calendar .date .date-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100rpx;
   min-width: 100rpx;
+  margin-bottom: 25rpx;
 }
-.total .on-todo {
-  color: skyblue;
+.total .calendar .date .date-block:hover {
+  color: white;
+  background-color: #b12121;
+  border-radius: 10rpx;
+  transition: 1s;
+}
+.total .calendar .date .other-month {
+  color: #1fc09d;
+}
+.total .calendar .date .on-todo {
+  color: #ee6d5c;
+}
+.total .footer {
+  margin-top: 30rpx;
+  background-color: rgba(238, 232, 232, 0.1);
+  color: white;
+}
+.total .footer .nowDayTip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25rpx;
+}
+.total .footer .nowDayTip .nowWeekDay {
+  font-size: 70rpx;
+}
+.total .footer .nowDayTodo {
+  margin-top: 10rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 50rpx;
+}
+.total .footer .nowDayTodo .unOkTodo {
+  color: #fcefef;
+}
+.total .footer .nowDayTodo view {
+  margin-bottom: 15rpx;
 }

@@ -42,6 +42,24 @@ let monthDay = (month, year) => {
 		}
 }
 
+let weekEnglish = ["Sunday", "Monday", "Tuesday", "Wendnesday", "Thursday", "Friday", "Saturday"]
+let monthEnglish = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"] 
+
+//用来算出某年某月某天是星期几
+let getWeekDay = (currentDay) => {
+  let year = currentDay.substr(0, 4)
+  let month = currentDay.substr(4, 2)
+  let day = currentDay.substr(6,2)
+
+  //获取此月第一天是周几
+  let firstDay = (parseInt((year-1)+(year-1)/4)-parseInt((year-1)/100)+parseInt((year-1)/400) + 1) % 7;
+  for(let i=2; i<= Number(month); i++) {
+    firstDay = (firstDay + monthDay(i-1, year)) % 7
+  }
+
+  return (firstDay + Number(day) - 1) % 7
+}
+
 
 //用来获取当月日历信息的
 let getCalendar = (currentMonth) => {
@@ -59,7 +77,7 @@ let getCalendar = (currentMonth) => {
   //本月日期表的数据本体
   let date = [];
 
-
+  
 
   // //用来保存日历本月日期前后的日期
   // let before = [], after = []
@@ -94,8 +112,7 @@ let getCalendar = (currentMonth) => {
     }
   }
 
-  console.log({date: date, week: ["日","一","二","三","四","五","六"]})
-  return {date: date, week: ["日","一","二","三","四","五","六"]}
+  return {date: date, week: ["S","M","T","W","T","F","S"], year: year, month: month}
 }
 
 
@@ -107,52 +124,65 @@ class History extends Component {
 
   
   render () {
-    let{date, week} = this.props.calendar
+    let{date, week, year, month} = this.props.calendar
     let dateList = this.props.dateList
     let {beforeMonth, nextMonth, currentMonth, currentDay, changeDay} = this.props
     if(dateList[currentDay] === undefined) {
-      dateList[currentDay] = []
+      //这部分也需要进行修正
+      dateList[currentDay] = {}
     }
-    console.log(currentMonth)
-    console.log(date, week)
+    // console.log(currentMonth)
+    // console.log(date, week)
     return (
         
-      <view class="total">
-        <view class="top">
-          <view onClick={beforeMonth.bind(this,currentMonth)} >👈</view>
-          <view style={"border: 3px solid wheat"}> {this.props.currentMonth} </view>
-          <view onClick={nextMonth.bind(this, currentMonth)}>🤜</view>
-        </view>
+      <scroll-view class="total">
+
+        
         <view class="calendar">
+        <view class="top">
+          <view class="switch-icon" onClick={beforeMonth.bind(this,currentMonth)}>👈</view>
+          <view class="top-text" > {monthEnglish[Number(month-1)] + "    " + year} </view>
+          <view class="switch-icon" onClick={nextMonth.bind(this, currentMonth)}>🤜</view>
+        </view>
+        <view className="calendar-body">
           <view class="week">
             {
               week.map((ele)=>{
-              return <view className="week-block">{ele}</view>
+              return <view className="week-block"> <Text>{ele}</Text></view>
               })
             }
           </view>
           <view class="date">
           {
               date.map((ele)=>{
-                console.log("date-block " + (dateList[ele] !== undefined ? "on-todo" : ""))
-              return <view  class={"date-block " + ((dateList[ele] !== undefined && dateList[ele].length > 0) ? "on-todo" : "")} onClick={changeDay.bind(this, ele)}>{ele.substr(6,2)}</view>
+              return <view  class={"date-block " + ((dateList[ele] !== undefined && Object.keys(dateList[ele]).length > 0) ? "on-todo " : "")
+                     + ((ele.substr(4,2) == month) ? "" : "other-month")} 
+              onClick={changeDay.bind(this, ele)}> <Text>{ele.substr(6,2)}</Text></view>
               })
             }
+          </view>
           </view>
       </view>
 
       <view className="footer">
-        
+        {/* 需要进行更改的是这部分 */}
+          
+          <view className="nowDayTip">
+             <view class="nowWeekDay">{weekEnglish[getWeekDay(currentDay)]}</view>
+          <view class="nowDay">{currentDay.substr(6,2)}</view>
+          </view>
+         <view className="nowDayTodo">
         {
-        dateList[currentDay].map((ele) => {
-          if(ele.isOk === true) {
-          return <view className="okTodo">{ele.todoName}</view>
+        Object.keys(dateList[currentDay]).map((key) => {
+          if((dateList[currentDay])[key].isOk === true) {
+          return <view className="okTodo">{"✅ " + (dateList[currentDay])[key].todoName}</view>
           } else {
-          return <view className="unOkTodo">{ele.todoName}</view>
+          return <view className="unOkTodo">{"⭕ " + (dateList[currentDay])[key].todoName}</view>
           }
         })}
+        </view>
       </view>
-      </view>
+      </scroll-view>
       
         
 

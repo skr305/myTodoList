@@ -48,14 +48,10 @@ export default function reducer (state = {}, action) {
             //思路是创建一个新的任务集
             let typeName = action.payload.typeName
             let typeKey = time()
-            console.log(typeName,typeKey + "--------")
-            //key是自动分配的 所需要的就是这个任务集的名字
-            let newTodoList = Object.assign({}, state.todoList)
-            newTodoList[typeKey] = {typeName: typeName, show: false, list: {}}
-            store["todoList"] = newTodoList
+
+            store["todoList"][typeKey] = {typeName: typeName, show: false, list: {}}
             //返回一个把旧的待办集列表换为新的待办列表的对象
-            console.log(Object.assign({}, state, {todoList: newTodoList}))
-            return Object.assign({}, state, {todoList: newTodoList})
+            return  Object.assign({}, state, store)
         }
       
      case "ADDTODO":
@@ -70,18 +66,20 @@ export default function reducer (state = {}, action) {
       //这是state中的待办列表 先去出来
       let todoList = Object.assign({}, state.todoList)
       // 并把对应的信息添加到历史记录中去
-      store["history"].dateList[todoKey.substr(0, 8)] = {"todoName": todoName, "isOk": false, "typeKey": typeKey, "endTime": endTime, "todoKey": todoKey}
+      if((store["history"].dateList[todoKey.substr(0, 8)]) === undefined)
+      {(store["history"].dateList[todoKey.substr(0, 8)])= {}}
+        (store["history"].dateList[todoKey.substr(0, 8)])[todoKey] = {"todoName": todoName, "isOk": false, "typeKey": typeKey, "endTime": endTime}
 
       //拷贝一份这个todoList
       let newList = Object.assign({}, todoList[typeKey].list)
-       newList[todoKey] = {"todoName": todoName, "isOk": false, "typeKey": typeKey, "endTime": endTime, "todoKey": todoKey}
+       newList[todoKey] = {"todoName": todoName, "isOk": false, "typeKey": typeKey, "endTime": endTime, typeName: store["todoList"][typeKey].typeName}
 
 
        todoList[typeKey].list = newList 
        store.todoList = todoList
        //思路是这样的 把一个以newList更改了之后type对应的对象和state对象组合成一个新的对象返回
        //目的是在不更改这个state的情况下创建一个加了一个新任务的state
-      return  Object.assign({}, state, {todoList: todoList})
+      return  Object.assign({}, state, store)
   }
        case "REACH":
          {
@@ -89,27 +87,15 @@ export default function reducer (state = {}, action) {
               //获取key
               let {typeKey, todoKey} = action.payload
           
-              //这是state中的待办列表 先去出来
-              let todoList = Object.assign({}, state.todoList)
 
-              //拷贝一份这个todoList
-              let newList = Object.assign({}, todoList[typeKey].list)
-              
-                
-
-              // console.log(typeof todoKey)
-              // for(let ele in newList[todoKey]) {
-              //   console.log(newList[todoKey][ele])
-              // }
-              newList[todoKey]["isOk"] = true
-
-              //同时修改历史记录
-              store["history"].dateList[todoKey.substr(0, 8)].isOk = true
-
-              todoList[typeKey].list = newList 
+                 //同时修改历史记录
+              if((store["history"].dateList[todoKey.substr(0, 8)])[todoKey] !== undefined)
+                {(store["history"].dateList[todoKey.substr(0, 8)])[todoKey]["isOk"] = true}
+              if(((store["todoList"][typeKey]).list)[todoKey] !== undefined)
+                { ((store["todoList"][typeKey]).list)[todoKey]["isOk"] = true}
               //思路是这样的 把一个以newList更改了之后type对应的对象和state对象组合成一个新的对象返回
               //目的是在不更改这个state的情况下创建一个加了一个新任务的state
-              return  Object.assign({}, state, {todoList: todoList})
+              return  Object.assign({}, state, store)
          }
          case "DELTYPE":
            {
@@ -118,62 +104,65 @@ export default function reducer (state = {}, action) {
               let newTodoList = Object.assign({}, state.todoList)
               if(newTodoList[typeKey] !== undefined)
               {
-                  console.log("正在删除分类" + typeKey)
                   //如果存在这个属性 就删除
                   delete newTodoList[typeKey] 
+                  
+                  //保险环 有些运行环境下这套代码不知道为什么不能通过reducer来更改store的数据
+                  //所以这里采用直接删除的方式来进行
+                  delete store["todoList"][typeKey]
               }
               store["todoList"] = newTodoList 
 
+
+              
+
               //返回一个把旧的待办集列表换为新的待办列表的对象
-              return Object.assign({}, state, {todoList: newTodoList})
+              return  Object.assign({}, state, store)
            }
            case "DELTODO":
              {
                  //获取key
               let {typeKey, todoKey} = action.payload
-          
-              //这是state中的待办列表 先去出来
-              let todoList = Object.assign({}, state.todoList)
 
-              //拷贝一份这个todoList
-              let newList = Object.assign({}, todoList[typeKey].list)
-              if(newList[todoKey] !== undefined) {
-                  delete newList[todoKey]
+              if(((store["todoList"][typeKey]).list)[todoKey] !== undefined) {
+                  delete  ((store["todoList"][typeKey]).list)[todoKey]
               }
-              if( store["history"].dateList[todoKey.substr(0, 8)] !== undefined) {
-                  delete store["history"].dateList[todoKey.substr(0, 8)]
+              if( (store["history"].dateList[todoKey.substr(0, 8)])["todoKey"] !== undefined) {
+                  delete (store["history"].dateList[todoKey.substr(0, 8)])["todoKey"]
               }
-              todoList[typeKey].list = newList 
+ 
               //思路是这样的 把一个以newList更改了之后type对应的对象和state对象组合成一个新的对象返回
               //目的是在不更改这个state的情况下创建一个加了一个新任务的state
-              return  Object.assign({}, state, {todoList: todoList})
+              return  Object.assign({}, state, store)
              }
              case "SHOWTYPE": {
                   //目的是显示一个任务集的下属任务 
                   
                   let typeKey = action.payload.typeKey
 
-                  let newTodoList = Object.assign({}, state.todoList)
-                  if(newTodoList[typeKey] !== undefined)
+
+                  if(store["todoList"][typeKey]!==undefined)
                   {
-                      newTodoList[typeKey].show = !newTodoList[typeKey].show
+                      store["todoList"][typeKey].show = !store["todoList"][typeKey].show
                   }
                   //返回一个把旧的待办集列表换为新的待办列表的对象
                   console.log("finishShowSet")
-                  return Object.assign({}, state, {todoList: newTodoList})
+                  
+                  return  Object.assign({}, state, store)
              }
              case "WEATHER": {
               state["tip"].weather = action.payload.weather
               let newTip = Object.assign({}, state.tip, {weather: action.payload.weather})
-              return Object.assign({}, state, {tip: newTip})
+              store["tip"] = newTip
+              return  Object.assign({}, state, store)
          }
             case "CURRENTMONTH": {
               state["history"].currentMonth = action.payload.currentMonth
-              return Object.assign({}, state)
+              return  Object.assign({}, state, store)
             }
               case "CURRENTDAY": {
                 state["history"].currentDay = action.payload.currentDay
-                return Object.assign({}, state)
+                return  Object.assign({}, state, store)
               }
               default:
                   return state

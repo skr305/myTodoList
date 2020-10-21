@@ -24,10 +24,10 @@ class Todo extends React.Component {
         let{todoList, typeKey, todoKey, reach, delTodo} = this.props
         console.log(todoKey+"5555555513")
         return (
-          <view class="flex-wrp" style="flex-direction:row;" style = "border: solid 2px wheat">
-          {(todoList[typeKey].list)[todoKey].todoName}
-           <Button class="flex-item flex-item-V demo-text-1" size = "mini" onClick={reach.bind(this, typeKey, todoKey)}>√</Button>
-           <Button class="flex-item flex-item-V demo-text-1" size = "mini" onClick={delTodo.bind(this, typeKey, todoKey)}>x</Button>
+          <view class="flex-wrp" class="todo">
+            <view className="todo-text">{(todoList[typeKey].list)[todoKey].todoName}</view>
+           <view class="todo-icon" size = "mini" onClick={reach.bind(this, typeKey, todoKey)}>√</view>
+           <view class="todo-icon" size = "mini" onClick={delTodo.bind(this, typeKey, todoKey)}>x</view>
            
           </view>
        

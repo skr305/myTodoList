@@ -1,0 +1,49 @@
+.index {
+  flex-direction: column;
+  width: 100%;
+}
+.index {
+  flex-direction: column;
+  width: 100%;
+}
+page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+page .total {
+  margin-top: 300rpx;
+}
+page .total .input-wrp {
+  margin-bottom: 100rpx;
+}
+page .total .input-wrp .type-input {
+  text-align: center;
+  color: #1aa6b7;
+  border-bottom: #f56a79 solid 5rpx;
+}
+page .total .input-wrp .type-input ::placeholder {
+  color: #1aa6b7;
+}
+page .total .picker-wrp {
+  margin-top: 50rpx;
+  margin-bottom: 50rpx;
+  border-radius: 50rpx;
+  height: 150rpx;
+  width: 350rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 30rpx;
+  font-size: 40rpx;
+  background-color: #ff414d;
+  color: white;
+}
+page .total .btn-wrp .submit-btn {
+  background-color: #1aa6b7;
+  border: 5rpx solid #d9ecf2;
+  color: #d9ecf2;
+  width: 300rpx;
+  border-radius: 50rpx;
+}

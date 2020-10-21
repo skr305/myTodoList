@@ -28,13 +28,13 @@ class Type extends React.Component {
     render() {
       const {show, typeKey, todoList, delType} = this.props
       console.log(typeof show)
-      console.log(typeof todoList[typeKey])
+      console.log(typeKey)
         return (
-          <view class="flex-wrp" >
-              <view class="flex-top">{todoList[typeKey].typeName}</view>
-           <view class="flex-item flex-item-V demo-text-1" width="15px"  onClick={()=>{Taro.navigateTo({url: '/pages/addTodo/index?typeKey=' + typeKey + '&'}); console.log(typeKey)}}>+</view>
-           <view class="flex-item flex-item-V demo-text-1" width="15px"  onClick={show.bind(this, typeKey)}>↓</view>
-           <view class="flex-item flex-item-V demo-text-1" width="15px"  onClick={() => {Taro.showModal({
+          <view class="type flex-wrp" >
+              <view class="type-text">{todoList[typeKey].typeName}</view>
+           <view class="type-icon" width="15px"  onClick={()=>{Taro.navigateTo({url: '/pages/addTodo/index?typeKey=' + typeKey + '&'}); console.log(typeKey)}}>+</view>
+           <view class="type-icon" width="15px"  onClick={show.bind(this, typeKey)}>↓</view>
+           <view class="type-icon" width="15px"  onClick={() => {Taro.showModal({
                                                                                                 title: '温馨提示',
                                                                                                 content: "您确定要删除分类" + todoList[typeKey].typeName + "及其中所有内容吗",
                                                                                                 success: function (res) {

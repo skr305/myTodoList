@@ -3,7 +3,12 @@
   width: 100%;
 }
 
+page {
+  background-color: darkcyan;
+}
+
 .total {
+
 
   // color: red;
   // .top .week .date {
@@ -12,38 +17,120 @@
   //   flex-direction: row;
   // }
 
-  .top {
-      
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-  }
+  
 
   .calendar {
+    border: 1rpx solid rgb(235, 133, 133);
+    border-radius: 10rpx;
+    .top {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      margin-top: 50rpx;
+      margin-bottom: 50rpx;
+      .top-text {
+        margin-top: 35rpx;
+        color: rgb(19, 114, 114);
+        font-size: 50rpx;
+      }
+      view {
+        margin-top: 35rpx;
+      }
+  }
+
+
+  .calendar-body {
+    display: flex;
+    flex-direction: column;
+    
+  }
+
+
+    background-color: whitesmoke;
     .week {
       display: flex;
       flex-direction: row;
+      justify-content: space-around;
+      margin-left: 25rpx;
       .week-block  {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         min-width: 100rpx;
+        min-height: 100rpx;
+        color: rgb(247, 97, 97);
+        font-weight: bold;
+        margin-bottom: 25rpx;
       }
     }
+
+
     .date{
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
+      justify-content: space-evenly;
+      margin-left: 25rpx;
+      
       .date-block  {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // text-align: center;
+        min-height: 100rpx;
         min-width: 100rpx;
+        margin-bottom: 25rpx;
       }
 
+      .date-block:hover {
+        color: white;
+        background-color: rgb(177, 33, 33);
+        border-radius: 10rpx;
+        transition: 1s;
+      }
+
+       .other-month {
+         color: rgb(31, 192, 157);
+       } 
+
+       .on-todo {
+        color: rgb(238, 109, 92)
+      }
     }
   }
   
 
-  
-
-  
-
-  .on-todo {
-    color: skyblue;
+  .footer {
+    margin-top: 30rpx;
+    background-color: rgba(238, 232, 232,0.1);
+    color: white;
+    
+    .nowDayTip {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .nowWeekDay {
+      font-size: 70rpx;
+     }
+     margin-bottom: 25rpx;
+    }
+    .nowDayTodo {
+      margin-top: 10rpx;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 50rpx;
+      .unOkTodo {
+        color: rgb(252, 239, 239);
+      }
+      view {
+        margin-bottom: 15rpx;
+      }
+    }
+    
   }
+
+  
+
+  
 }
