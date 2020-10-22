@@ -29,9 +29,12 @@ page {
       flex-direction: row;
       .weatherIcon {
         margin-left: 50rpx;
+        font-size: 150rpx;
       }
       .weatherText {
+        margin-top: 40rpx;
         margin-left: 40rpx;
+        font-size: 60rpx;
       }
       font-size: medium;
       max-width: 300rpx;
@@ -44,15 +47,11 @@ page {
   
 
   .main {
-    .addType {
-      margin-left: 560rpx;
-      margin-bottom: 60rpx;
-    }
+
     margin-left: 10rpx;
     height: 1100rpx;
     width: 690rpx;
     background-color: rgba(217,236,242,0.3);
-    border: 8px solid white;
     border-radius: 5%;
     display: flex;
     justify-content: center;
@@ -77,16 +76,20 @@ page {
   .todo {
     display: flex;
     flex-direction: row;
-    border: 5rpx solid white;
-    border-radius: 20rpx;
-    min-height: 65rpx;
+    border: 6rpx solid white;
+    align-items: center;
+    border-radius: 40rpx;
+    min-height: 110rpx;
+    font-weight: bold;
+    font-size: 48rpx;
     width: 95%;
-    margin-bottom: 14rpx;
-    background-color: #ff414d;
+    margin-bottom: 40rpx;
+    background-color: rgba(235, 18, 18, 0.8);
     .todo-icon {
       margin-top: 10rpx;
       margin-left: 30rpx;
       margin-right: 30rpx;
+      font-size: 50rpx;
     }
     .todo-text {
       margin-top: 10rpx;
@@ -95,14 +98,24 @@ page {
     }
   }
 }
+.todo:nth-of-type(3n+1) {
+  background-color: #0ae2d0a8;
+  color: rgb(255, 255, 255);
+}
+.todo:nth-of-type(3n+2) {
+  background-color: #d9ecf2;
+  color: darkcyan;
+}
 .type{
   display: flex;
   flex-direction: row;
-  min-height: 80rpx;
-  border: solid 7rpx #d9ecf2;
-  border-radius: 20rpx;
-  margin-bottom: 25rpx;
+  align-items: center;
+  min-height: 120rpx;
+  border: solid 10rpx #d9ecf2;
+  border-radius: 40rpx;
+  margin-bottom: 40rpx;
   background-color: #f56a79;
+  font-size: 49rpx;
   .type-icon {
     padding: 0;
     margin-left: 20rpx;
@@ -122,12 +135,18 @@ page {
 }
 
 .addType {
-  height: 50rpx;
-  width: 50rpx;
-  border: #d9ecf2 5px solid;
+  // height: 50rpx;
+  // width: 50rpx;
+  &:hover {
+    color: rgb(226, 106, 106);
+    transition: 1s;
+  }
   color: #d9ecf2;
   font-weight: bold;
-  border-radius: 50%;
-  text-align: center;
-  padding: 20rpx;
+  font-size: 100rpx;
+  // border-radius: 50%;
+  // text-align: center;
+  // padding: 20rpx;
+  margin-left: 560rpx;
+  margin-bottom: 60rpx;
 }

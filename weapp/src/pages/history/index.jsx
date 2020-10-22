@@ -1,15 +1,10 @@
 import React, { Component } from 'react'
 import { connect, Provider } from 'react-redux'
-import { View, Button, Text, Swiper } from '@tarojs/components'
-import Taro, { Current } from '@tarojs/taro'
-// import { createStore, applyMiddleware } from 'redux'
-// import thunk from 'redux-thunk'
-// import reducer from '../reducers/index'
-// import { add, minus, asyncAdd } from '../../actions/counter'
-import './index.less'
-import VisibleTodo from '../todoListComp/todo'
-import VisibleType from '../todoListComp/type'
-import showTodo from '../actions/index'
+import { View, Text} from '@tarojs/components'
+
+import '../iconfont/iconfont.css'
+import './index.css'
+
 import store from '../store/index'
 import {currentMonthAct, currentDayAct} from '../actions/index'
 
@@ -140,9 +135,9 @@ class History extends Component {
         
         <view class="calendar">
         <view class="top">
-          <view class="switch-icon" onClick={beforeMonth.bind(this,currentMonth)}>👈</view>
+          <view class="switch-icon iconfont" style="font-size: 95rpx;" onClick={beforeMonth.bind(this,currentMonth)}>&#xe608;</view>
           <view class="top-text" > {monthEnglish[Number(month-1)] + "    " + year} </view>
-          <view class="switch-icon" onClick={nextMonth.bind(this, currentMonth)}>🤜</view>
+          <view class="switch-icon iconfont" style="font-size: 95rpx;" onClick={nextMonth.bind(this, currentMonth)}>&#xe61e;</view>
         </view>
         <view className="calendar-body">
           <view class="week">
@@ -175,9 +170,9 @@ class History extends Component {
         {
         Object.keys(dateList[currentDay]).map((key) => {
           if((dateList[currentDay])[key].isOk === true) {
-          return <view className="okTodo">{"✅ " + (dateList[currentDay])[key].todoName}</view>
+          return <view className="okTodo"><text class="iconfont" style="color: rgba(15, 235, 107, 0.692); font-size: 76rpx;">&#xe775; </text>{"" + (dateList[currentDay])[key].todoName}</view>
           } else {
-          return <view className="unOkTodo">{"⭕ " + (dateList[currentDay])[key].todoName}</view>
+          return <view className="unOkTodo"><text class="iconfont" style="color: rgba(177, 33, 33, 0.5); font-size: 76rpx;">&#xe600; </text>{(dateList[currentDay])[key].todoName}</view>
           }
         })}
         </view>
@@ -265,7 +260,6 @@ function mapDispatchToProps(dispatch) {
 // }
 class App extends React.Component {
   render() {
-    console.log("indexPage rendering...")
     return (
       <View>
         

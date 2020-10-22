@@ -1,0 +1,22 @@
+.index {
+  flex-direction: column;
+  width: 100%;
+}
+page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #d9ecf2;
+  font-size: 70rpx;
+  font-weight: 700;
+  background-color: #FF414D;
+}
+page .total {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+page .total view {
+  margin-top: 200rpx;
+}

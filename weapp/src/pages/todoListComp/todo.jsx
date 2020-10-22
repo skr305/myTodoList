@@ -22,7 +22,6 @@ class Todo extends React.Component {
 
     render() {
         let{todoList, typeKey, todoKey, reach, delTodo} = this.props
-        console.log(todoKey+"5555555513")
         return (
           <view class="flex-wrp" class="todo">
             <view className="todo-text">{(todoList[typeKey].list)[todoKey].todoName}</view>

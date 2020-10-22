@@ -1,46 +1,7 @@
 
 import {time} from '../constants/date'
 import store from '../store/index'
-// const INITIAL_STATE = {
-//   num: 0
-// }
 
-// export default function reducer (state = INITIAL_STATE, action) {
-//   switch (action.type) {
-//     case "ADDSET":
-//       return {
-//         ...state,
-//         num: state.num + 1
-//       }
-//      case "ADDTODO":
-//        return {
-//          ...state,
-//          num: state.num - 1
-//        }
-//        case "REACH":
-//          return {
-//            ...state,
-//            num: state.num - 1
-//          }
-//          case "DELSET":
-//            return {
-//              ...state,
-//              num: state.num - 1
-//            }
-//            case "DELTODO":
-//              return {
-//                ...state,
-//                num: state.num - 1
-//              }
-//              case "SHOWTODO":
-//                return {
-//                  ...state,
-//                  num: state.num - 1
-//                }
-//      default:
-//        return state
-//   }
-// }
 export default function reducer (state = {}, action) {
   switch (action.type) {
     case "ADDTYPE":
@@ -61,8 +22,6 @@ export default function reducer (state = {}, action) {
       //获取所在的分类
       let {typeKey, todoName, endTime} = action.payload
       
-
-      console.log(action.payload)
       //这是state中的待办列表 先去出来
       let todoList = Object.assign({}, state.todoList)
       // 并把对应的信息添加到历史记录中去
@@ -83,11 +42,8 @@ export default function reducer (state = {}, action) {
   }
        case "REACH":
          {
-
               //获取key
               let {typeKey, todoKey} = action.payload
-          
-
                  //同时修改历史记录
               if((store["history"].dateList[todoKey.substr(0, 8)])[todoKey] !== undefined)
                 {(store["history"].dateList[todoKey.substr(0, 8)])[todoKey]["isOk"] = true}
@@ -139,14 +95,12 @@ export default function reducer (state = {}, action) {
                   //目的是显示一个任务集的下属任务 
                   
                   let typeKey = action.payload.typeKey
-
-
+                  console.log(typeKey);
                   if(store["todoList"][typeKey]!==undefined)
                   {
                       store["todoList"][typeKey].show = !store["todoList"][typeKey].show
                   }
                   //返回一个把旧的待办集列表换为新的待办列表的对象
-                  console.log("finishShowSet")
                   
                   return  Object.assign({}, state, store)
              }

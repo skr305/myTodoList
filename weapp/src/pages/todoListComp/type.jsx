@@ -1,11 +1,8 @@
-import Taro, { showModal } from '@tarojs/taro'
-import { Button, View} from '@tarojs/components'
+import Taro  from '@tarojs/taro'
 import React from 'react'
 import { connect } from 'react-redux'
 import {showTypeAct, delTypeAct} from '../actions/index'
-
-let open = true;
-console.log(open)
+import '../iconfont/iconfont.css'
 
 
 class Type extends React.Component {
@@ -26,25 +23,23 @@ class Type extends React.Component {
 
 
     render() {
+        
       const {show, typeKey, todoList, delType} = this.props
-      console.log(typeof show)
       console.log(typeKey)
         return (
-          <view class="type flex-wrp" >
-              <view class="type-text">{todoList[typeKey].typeName}</view>
-           <view class="type-icon" width="15px"  onClick={()=>{Taro.navigateTo({url: '/pages/addTodo/index?typeKey=' + typeKey + '&'}); console.log(typeKey)}}>+</view>
-           <view class="type-icon" width="15px"  onClick={show.bind(this, typeKey)}>↓</view>
-           <view class="type-icon" width="15px"  onClick={() => {Taro.showModal({
+          <view class="type flex-wrp" id="out" >
+              <view class="type-text" id="text">{todoList[typeKey].typeName}</view>
+           <view class="type-icon iconfont" width="15px" fontSize="90rpx" onClick={()=>{Taro.navigateTo({url: '/pages/addTodo/index?typeKey=' + typeKey + '&'});}}>&#xe610;</view>
+           <view class="type-icon iconfont" width="15px" fontSize="90rpx" onClick={show.bind(this, typeKey)}>&#xe785;</view>
+           <view class="type-icon iconfont" width="15px" fontSize="90rpx" onClick={() => {Taro.showModal({
                                                                                                 title: '温馨提示',
                                                                                                 content: "您确定要删除分类" + todoList[typeKey].typeName + "及其中所有内容吗",
                                                                                                 success: function (res) {
                                                                                                     if (res.confirm) {
                                                                                                         
                                                                                                         delType(typeKey)
-                                                                                                    } else if (res.cancel) {
-                                                                                                    console.log('用户点击取消')
-                                                                                                    }
-                                                                                                }})}}>x</view>
+                                                                                                    } 
+                                                                                                }})}}>&#xe670;</view>
           </view>
         )
     }
@@ -54,7 +49,7 @@ class Type extends React.Component {
 
 
 
-
+// onClick={() => {Taro.navigateTo({url: '/pages/typeInfo/index?typeKey=' + typeKey + '&'});}}
 
 function mapStateToProps (state) {
     return {
@@ -63,16 +58,11 @@ function mapStateToProps (state) {
     }
 }
 
-// let mapDispatchToProps = {
-//     add: () => {type: "ADD"},
-//     minus: () => {type: "MINUS"}
-// }
-// , mapDispatchToProps
+
 function mapDispatchToProps(dispatch) {
     return {
-    //   add: () => dispatch({type: "ADD"}),
-    //   minus: () => dispatch({type: "MINUS"})
-        show: (typeKey) => dispatch(showTypeAct(typeKey)),
+
+        show: (typeKey) => {return dispatch(showTypeAct(typeKey))},
         delType: (typeKey) => dispatch(delTypeAct(typeKey))
     }
   }
