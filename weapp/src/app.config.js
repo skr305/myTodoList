@@ -4,8 +4,8 @@ export default {
     'pages/addTodo/index',
     'pages/addType/index',
     'pages/history/index',
-    'pages/typeInfo/index'
-    
+    'pages/typeInfo/index',
+    'pages/todoInfo/index'
     
   ],
   window: {

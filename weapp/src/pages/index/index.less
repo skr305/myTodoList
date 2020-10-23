@@ -58,6 +58,12 @@ page {
     overflow: scroll;
     padding: 30rpx;
     
+
+   .no-type-tip {
+      text-align: center;
+      font-size: 80rpx;
+      margin-top: 430rpx;
+   }
   }
 }
 
@@ -67,12 +73,20 @@ page {
   justify-content: center;
 }
 
+
+
+.hidden {
+  max-width: 0;
+  max-height: 0;
+}
+
+
 .todo-wrp {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
+  transition: 0.7s;
   .todo {
     display: flex;
     flex-direction: row;

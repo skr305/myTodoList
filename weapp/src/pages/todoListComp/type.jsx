@@ -25,13 +25,13 @@ class Type extends React.Component {
     render() {
         
       const {show, typeKey, todoList, delType} = this.props
-      console.log(typeKey)
         return (
-          <view class="type flex-wrp" id="out" >
-              <view class="type-text" id="text">{todoList[typeKey].typeName}</view>
-           <view class="type-icon iconfont" width="15px" fontSize="90rpx" onClick={()=>{Taro.navigateTo({url: '/pages/addTodo/index?typeKey=' + typeKey + '&'});}}>&#xe610;</view>
-           <view class="type-icon iconfont" width="15px" fontSize="90rpx" onClick={show.bind(this, typeKey)}>&#xe785;</view>
-           <view class="type-icon iconfont" width="15px" fontSize="90rpx" onClick={() => {Taro.showModal({
+          <view class="type flex-wrp" >
+              <view class="type-text" >{todoList[typeKey].typeName}</view>
+            <view class="type-icon iconfont" width="15px" fontSize="90rpx"onClick={() => {Taro.navigateTo({url: '/pages/typeInfo/index?typeKey=' + typeKey + '&'});}}>&#xe613;  </view>
+           <view class="type-icon iconfont" width="15px" fontSize="90rpx" onClick={(e)=>{e.stopPropagation;Taro.navigateTo({url: '/pages/addTodo/index?typeKey=' + typeKey + '&'})}}>&#xe610;</view>
+           <view class="type-icon iconfont" width="15px" fontSize="90rpx" onClick={(e) => {e.stopPropagation;show(typeKey)}}>&#xe785;</view>
+           <view class="type-icon iconfont" width="15px" fontSize="90rpx" onClick={(e) => {e.stopPropagation;Taro.showModal({
                                                                                                 title: '温馨提示',
                                                                                                 content: "您确定要删除分类" + todoList[typeKey].typeName + "及其中所有内容吗",
                                                                                                 success: function (res) {

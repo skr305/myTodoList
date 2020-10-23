@@ -1,11 +1,9 @@
-import Taro , {getCurrentInstance} from '@tarojs/taro'
+import Taro from '@tarojs/taro'
 import React from 'react'
-import { connect, Provider } from 'react-redux'
-import { View, Button, Input } from '@tarojs/components'
 // import { add, minus, asyncAdd } from '../../actions/counter'
 import './index.less'
 import store from '../store/index'
-
+import {toFormatDate} from '../constants/date'
 
 
 
@@ -20,7 +18,7 @@ class TypeInfo extends React.Component {
     console.log(Taro.getCurrentInstance())
     let typeKey = (Taro.getCurrentInstance()["router"]["params"]).typeKey
     let typeName = (store["todoList"][typeKey]).typeName;
-    let builtTime = typeKey
+    let builtTime = toFormatDate(typeKey)
 
     return (
       <view className="total">

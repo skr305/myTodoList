@@ -132,6 +132,13 @@ class TodoList extends Component {
       <ScrollView scrollY={true} class="main">
       <View class="addType iconfont" onClick={()=>{Taro.navigateTo({url: '/pages/addType/index'})}}>&#xe85e;</View>
 
+
+        {/* 这个标签是用来在当前还没有添加type的时候显示的 */}
+           <view className={"no-type-tip"} style={ ((Object.keys(store["todoList"])).length > 0) ? "display:none" : ""}>
+            当前没有任务~
+          </view>
+
+
         {
           
            Object.keys(store["todoList"]).map((typeKey) => {

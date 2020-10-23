@@ -1,15 +1,8 @@
-import { Button } from '@tarojs/components'
+import Taro from "@tarojs/taro"
 import React from 'react'
 import {reachAct} from '../actions/index'
 import {delTodoAct} from '../actions/index'
-
-// let open = true;
-// console.log(open)
-// let clickLow = () => {
-//   open = !open
-//   console.log(open)
-// }
-
+import "../iconfont/iconfont.css"
 import { connect } from 'react-redux'
 
 
@@ -25,8 +18,9 @@ class Todo extends React.Component {
         return (
           <view class="flex-wrp" class="todo">
             <view className="todo-text">{(todoList[typeKey].list)[todoKey].todoName}</view>
-           <view class="todo-icon" size = "mini" onClick={reach.bind(this, typeKey, todoKey)}>√</view>
-           <view class="todo-icon" size = "mini" onClick={delTodo.bind(this, typeKey, todoKey)}>x</view>
+            <view class="todo-icon iconfont" width="15px" fontSize="90rpx" onClick={() => {Taro.navigateTo({url: '/pages/todoInfo/index?typeKey=' + typeKey + '&todoKey=' + todoKey});}}>&#xe613; </view>
+           <view class="todo-icon iconfont" size = "mini" onClick={reach.bind(this, typeKey, todoKey)}>&#xe775;</view>
+           <view class="todo-icon iconfont" size = "mini" onClick={delTodo.bind(this, typeKey, todoKey)}>&#xe670;</view>
            
           </view>
        

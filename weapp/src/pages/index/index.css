@@ -45,15 +45,25 @@ page .main {
   overflow: scroll;
   padding: 30rpx;
 }
+page .main .no-type-tip {
+  text-align: center;
+  font-size: 80rpx;
+  margin-top: 430rpx;
+}
 .todo-tip {
   display: flex;
   justify-content: center;
+}
+.hidden {
+  max-width: 0;
+  max-height: 0;
 }
 .todo-wrp {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  transition: 0.7s;
 }
 .todo-wrp .todo {
   display: flex;

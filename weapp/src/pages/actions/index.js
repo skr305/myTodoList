@@ -98,3 +98,13 @@ export function currentDayAct(day) {
     }
 }
 
+//用于初始化store内容
+export function initAct(data) {
+    return {
+        type: "INIT",
+        payload: {
+            data: data
+        }
+    }
+}
+

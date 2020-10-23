@@ -21,6 +21,19 @@ export function formatDateToTime(date) {
 }
 
 
+
+
+//把时间戳转化为日期(不带时间的如20201005转化为2020-10-5)
+export function toFormatDate(date) {
+    let year = date.substr(0,4)
+    let month = date.substr(4,2)
+    let day = date.substr(6,2)
+
+    return year + "-" + month + "-" + day
+}
+
+
+
 export function date() {
     let dateStr = (new Date()).getFullYear() + "" +
     (((new Date()).getMonth() + 1 < 10) ? ("0" + ((new Date()).getMonth() + 1)) : ((new Date()).getMonth() + 1))  + (((new Date()).getDate() < 10) ? ("0" + (new Date()).getDate()) : (new Date()).getDate())

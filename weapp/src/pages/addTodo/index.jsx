@@ -55,7 +55,7 @@ class AddTodo extends React.Component {
 
     onDateChange = e => {
     this.setState({
-      endTime: formatDateToTime(e.detail.value)
+      endTime: e.detail.value
     }) 
   }
 
@@ -82,7 +82,7 @@ class AddTodo extends React.Component {
               </Picker>
             </View>
   <View className="btn-wrp"> 
-    <Button className="submit-btn" onClick={() => {if(this.state.endTime.length < 14); addTodo(this.state.endTime, this.state.todoName, this.state.typeKey);Taro.switchTab({url: "/pages/index/index"})}}>提交</Button>
+    <Button className="submit-btn" onClick={() => {if(this.state.endTime.length < 8) {return}; addTodo(this.state.endTime, this.state.todoName, this.state.typeKey);Taro.switchTab({url: "/pages/index/index"})}}>提交</Button>
     
     </View>
 
